@@ -1,7 +1,7 @@
 <h1 align="center">基于S2SH架构的购物商城项目</h1>
 
 ## 项目描述
-本项目采用了Struts2+Spring5+Hibernate5传统架构，其中Spring部分实现无xml纯java配置。采用MySQL数据库，c3p0连接池，采用本地文件系统作为图片上传后的存储目录。采用Hibernate作为数据持久层，Spring作为业务逻辑层管理所有bean，Struts2作为控制层，jsp作为展现层。前端部分：前台网页使用Bootstrap3 UI框架设计；后台管理页面使用Jquery EasyUI框架内嵌在Bootstrap3框架内的结构以实现美观，使用CKEditor作为在线编辑器。
+本项目采用了Struts2+Spring5+Hibernate5传统架构，其中Spring部分实现无xml纯java配置。采用Maven做项目管理，采用MySQL数据库，c3p0连接池，采用本地文件系统作为图片上传后的存储目录。采用Hibernate作为数据持久层，Spring作为业务逻辑层管理所有bean，Struts2作为控制层，jsp作为展现层。前端部分：前台网页使用Bootstrap3 UI框架设计；后台管理页面使用Jquery EasyUI框架内嵌在Bootstrap3框架内的结构以实现美观，使用CKEditor作为在线编辑器。
 
 
 ## 实现功能
