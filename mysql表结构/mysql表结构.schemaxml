@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8mb4" collation="utf8mb4_0900_ai_ci">db_market</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="t_bigtype" view="colnames">
+<left>29</left>
+<top>230</top>
+<width>101</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `t_bigtype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_cart" view="colnames">
+<left>798</left>
+<top>292</top>
+<width>98</width>
+<height>94</height>
+<sql_create_table>CREATE TABLE `t_cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_cart_product" view="colnames">
+<left>578</left>
+<top>284</top>
+<width>127</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `t_cart_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num` int(11) NOT NULL,
+  `cartId` int(11) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKinp6lkt919oja7s1hsq46s5ls` (`cartId`),
+  KEY `FK2v78or8im89b8k13951poxfg5` (`productId`),
+  CONSTRAINT `FK2v78or8im89b8k13951poxfg5` FOREIGN KEY (`productId`) REFERENCES `t_product` (`id`),
+  CONSTRAINT `FKinp6lkt919oja7s1hsq46s5ls` FOREIGN KEY (`cartId`) REFERENCES `t_cart` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_comment" view="colnames">
+<left>534</left>
+<top>73</top>
+<width>110</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `t_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(1000) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  `createTime` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKddesd05ef4siksq9k38ds54c4` (`productId`),
+  KEY `FKaxj38fi1v96ialiygh3wak3ra` (`userId`),
+  CONSTRAINT `FKaxj38fi1v96ialiygh3wak3ra` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `FKddesd05ef4siksq9k38ds54c4` FOREIGN KEY (`productId`) REFERENCES `t_product` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_innercomment" view="colnames">
+<left>793</left>
+<top>38</top>
+<width>151</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `t_innercomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(1000) DEFAULT NULL,
+  `parentCommentId` int(11) DEFAULT NULL,
+  `replyToUserId` int(11) DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  `createTime` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK3c33xwtvrmekoyy1sp63fwfh3` (`parentCommentId`),
+  KEY `FKt2ppe0ghpkwgn97fod4qnf0ph` (`replyToUserId`),
+  KEY `FKl0ghqd3k54vawkipek998d776` (`userId`),
+  CONSTRAINT `FK3c33xwtvrmekoyy1sp63fwfh3` FOREIGN KEY (`parentCommentId`) REFERENCES `t_comment` (`id`),
+  CONSTRAINT `FKl0ghqd3k54vawkipek998d776` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `FKt2ppe0ghpkwgn97fod4qnf0ph` FOREIGN KEY (`replyToUserId`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_news" view="colnames">
+<left>27</left>
+<top>17</top>
+<width>110</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `t_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text,
+  `createTime` datetime(6) DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_notice" view="colnames">
+<left>143</left>
+<top>14</top>
+<width>110</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `t_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text,
+  `createTime` datetime(6) DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_order" view="colnames">
+<left>798</left>
+<top>447</top>
+<width>110</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `t_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cost` float NOT NULL,
+  `orderCode` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL,
+  `createTime` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK55tw574h6f9wejns58ustqtng` (`userId`),
+  CONSTRAINT `FK55tw574h6f9wejns58ustqtng` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_order_product" view="colnames">
+<left>588</left>
+<top>458</top>
+<width>134</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `t_order_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num` int(11) NOT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  `price` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK4cp2m8lxnyq3pdaq439nqtm6l` (`orderId`),
+  KEY `FK95trh7hy2bfcwr8lp63yb1i2u` (`productId`),
+  CONSTRAINT `FK4cp2m8lxnyq3pdaq439nqtm6l` FOREIGN KEY (`orderId`) REFERENCES `t_order` (`id`),
+  CONSTRAINT `FK95trh7hy2bfcwr8lp63yb1i2u` FOREIGN KEY (`productId`) REFERENCES `t_product` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_product" view="colnames">
+<left>321</left>
+<top>208</top>
+<width>141</width>
+<height>320</height>
+<sql_create_table>CREATE TABLE `t_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(2000) DEFAULT NULL,
+  `hot` bit(1) NOT NULL,
+  `imageName` varchar(255) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `onSale` bit(1) NOT NULL,
+  `onSalePrice` float NOT NULL,
+  `price` float NOT NULL,
+  `stock` int(11) NOT NULL,
+  `bigTypeId` int(11) DEFAULT NULL,
+  `smallTypeId` int(11) DEFAULT NULL,
+  `hotEndTime` datetime(6) DEFAULT NULL,
+  `hotStartTime` datetime(6) DEFAULT NULL,
+  `onSaleEndTime` datetime(6) DEFAULT NULL,
+  `onSaleStartTime` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKh260irb8gh5a173cpx105fcb7` (`bigTypeId`),
+  KEY `FK6xxpfm2j9slrx8ljg8yq7lvwf` (`smallTypeId`),
+  CONSTRAINT `FK6xxpfm2j9slrx8ljg8yq7lvwf` FOREIGN KEY (`smallTypeId`) REFERENCES `t_smalltype` (`id`),
+  CONSTRAINT `FKh260irb8gh5a173cpx105fcb7` FOREIGN KEY (`bigTypeId`) REFERENCES `t_bigtype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_smalltype" view="colnames">
+<left>153</left>
+<top>426</top>
+<width>103</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `t_smalltype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `bigTypeId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK5wb0lngamrqglakpm3nqra292` (`bigTypeId`),
+  CONSTRAINT `FK5wb0lngamrqglakpm3nqra292` FOREIGN KEY (`bigTypeId`) REFERENCES `t_bigtype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_tag" view="colnames">
+<left>265</left>
+<top>15</top>
+<width>78</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `t_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="t_user" view="colnames">
+<left>1026</left>
+<top>259</top>
+<width>118</width>
+<height>311</height>
+<sql_create_table>CREATE TABLE `t_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(200) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `identityCode` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `nickName` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  `realName` varchar(20) DEFAULT NULL,
+  `sex` varchar(5) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `userName` varchar(20) DEFAULT NULL,
+  `cartId` int(11) DEFAULT NULL,
+  `userImage` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_crvla2hefdjpl6vxfkg3bakus` (`cartId`),
+  CONSTRAINT `FKfwptvdwn7cyrmkrr9kl9iiiu5` FOREIGN KEY (`cartId`) REFERENCES `t_cart` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

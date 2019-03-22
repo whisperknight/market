@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<!-- struts.devMode表示开发者模式，当为true时如果改变了其中的一些代码，可以不用重新启动tomcat -->
+	<constant name="struts.devMode" value="true" />
+
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.action.extension" value="action"/>
+
+	<!-- 设置文件最大上传大小，默认是2M -->
+	<constant name="struts.multipart.maxSize" value="2097152"/>
+
+	<package name="market" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="error">error.jsp</result>
+		</global-results>
+
+		<!-- 允许使用通配符 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+
+		<!-- <global-exception-mappings> <exception-mapping result="error" exception="java.lang.Exception"></exception-mapping> 
+			</global-exception-mappings> -->
+
+		<action name="product_*"
+			class="com.mycompany.action.ProductAction" method="{1}">
+			<result name="success">product/home.jsp</result>
+		</action>
+
+		<action name="news_*" class="com.mycompany.action.NewsAction"
+			method="{1}">
+			<result name="success">news/home.jsp</result>
+		</action>
+
+		<action name="notice_*"
+			class="com.mycompany.action.NoticeAction" method="{1}">
+			<result name="success">notice/home.jsp</result>
+		</action>
+
+		<action name="user_*" class="com.mycompany.action.UserAction"
+			method="{1}">
+			<result name="success">user/home.jsp</result>
+			<result name="error" type="chain">user_toLogin</result>
+			<result name="toIndex" type="redirect">index.jsp</result>
+			<result name="toOrderCenter" type="chain">order_obtainOrdersData
+			</result>
+			<result name="toAdmin">admin/home.jsp</result>
+			<result name="adminError" type="chain">user_toAdminLogin</result>
+			<result name="toAdminMain" type="redirect">user_adminMain.action</result>
+		</action>
+
+		<action name="comment_*"
+			class="com.mycompany.action.CommentAction" method="{1}">
+			<result name="showComments" type="chain">comment_</result>
+			<result name="toComment">product/comment.jsp</result>
+		</action>
+
+		<action name="cart_*" class="com.mycompany.action.CartAction"
+			method="{1}">
+			<result name="success">cart/home.jsp</result>
+			<result name="toList" type="redirect">cart_toList.action</result>
+		</action>
+
+		<action name="order_*" class="com.mycompany.action.OrderAction"
+			method="{1}">
+			<result name="success">user/home.jsp</result>
+			<result name="returnToUserCenter" type="chain">user_showUserCenterPage
+			</result>
+			<result name="toOrders" type="redirect">order_toOrders.action</result>
+			<result name="toUserCenter" type="chain">user_userCenter</result>
+		</action>
+
+		<action name="type_*" class="com.mycompany.action.TypeAction"
+			method="{1}">
+		</action>
+
+		<action name="upload_*"
+			class="com.mycompany.action.CKEditorAction" method="{1}">
+		</action>
+
+		<action name="tag_*" class="com.mycompany.action.TagAction"
+			method="{1}">
+		</action>
+
+		<action name="sys_*" class="com.mycompany.action.SystemAction"
+			method="{1}">
+		</action>
+	</package>
+</struts>
